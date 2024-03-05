@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'frontend',
+    'rest_framework',
+    'drf_yasg',  # Документация Swagger
 ]
 
 MIDDLEWARE = [
