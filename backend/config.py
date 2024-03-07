@@ -31,3 +31,9 @@ REDIS_PORT = env("REDIS_PORT")
 
 # Домен (ip) при развертывании на сервере
 DOMEN_HOSTS = env("DOMEN_HOSTS").split(", ")
+
+# Статусы для мягкого удаления записей
+STATUS_CHOICES = [
+    (True, "Удалено"),
+    (False, "Активно"),
+]

@@ -27,7 +27,7 @@ from backend.config import (
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'frontend',
     'rest_framework',
+    'phone_field',  # Хранение и валидация номеров телефонов в БД
+    'django_cleanup.apps.CleanupConfig',  # Автоматическое удаление старых файлов при обновлении моделей
+    'backend.user_profile.apps.UserProfileConfig',
     'drf_yasg',  # Документация Swagger
 ]
 
@@ -169,13 +172,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "src", "static"),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "backend", "static"),)
 
 # Сбор статики командой collectstatic
-STATIC_ROOT = os.path.join(BASE_DIR, "src", "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "frontend", "static")
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "frontend"
+MEDIA_ROOT = BASE_DIR / "backend"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
