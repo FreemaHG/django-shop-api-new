@@ -9,10 +9,6 @@ class ProfileRepository:
     """
 
     @classmethod
-    def create(cls):
-        pass
-
-    @classmethod
     def get(cls, user: User) -> Profile:
         """
         Возврат профиль пользователя из БД
@@ -20,11 +16,3 @@ class ProfileRepository:
         :return: профайл пользователя
         """
         return Profile.objects.get(user=user)
-
-    @classmethod
-    def update(cls):
-        pass
-
-    @classmethod
-    def delete(cls):
-        pass

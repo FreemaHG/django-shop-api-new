@@ -1,8 +1,11 @@
+import logging
+
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
 
 from backend.user_profile.models import Profile
+
+
+logger = logging.getLogger(__name__)
 
 
 @admin.action(description="Мягкое удаление")
@@ -36,14 +39,44 @@ class ProfileAdmin(admin.ModelAdmin):
         restore_records,
     )
 
-    fieldsets = (("Основное", {"fields": ("user", "patronymic", "phone", "avatar", "deleted")}),)
-
+    @admin.display(description='ФИО')
     def full_name(self, object):
         return object.__str__()
 
-    full_name.short_description = "ФИО"
-
+    @admin.display(description='Email')
     def email(self, object):
         return object.user.email
 
-    email.short_description = "Email"
+    # Детальная страница профайла
+    readonly_fields = ['username', 'first_name', 'last_name', 'email']
+
+    fieldsets = (
+        (
+            "Данные аккаунта", {
+                "fields": ("username", "first_name", "last_name", "email"),
+                "description": "Основные данные пользователя",
+            }
+        ),
+        (
+            "Данные профиля", {
+                "fields": ("patronymic", "phone", "avatar", "deleted"),
+                "description": "Дополнительные данные пользователя",
+            },
+        ),
+    )
+
+    @admin.display(description='Никнейм')
+    def username(self, obj):
+        return obj.user.username
+
+    @admin.display(description='Имя')
+    def first_name(self, obj):
+        return obj.user.first_name
+
+    @admin.display(description='Фамилия')
+    def last_name(self, obj):
+        return obj.user.last_name
+
+    @admin.display(description='Email')
+    def email(self, obj):
+        return obj.user.email
