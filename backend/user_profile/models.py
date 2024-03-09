@@ -6,7 +6,6 @@ from backend.config import STATUS_CHOICES
 from backend.user_profile.utils.save_file import avatar_path
 
 
-
 class Profile(models.Model):
     """
     Профайл пользователя

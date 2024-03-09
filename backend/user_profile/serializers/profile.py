@@ -23,9 +23,9 @@ class ProfileOutSerializer(serializers.ModelSerializer):
     Схема для вывода данных профайла пользователя
     """
 
-    fullName = serializers.SerializerMethodField("full_name")
+    fullName = serializers.SerializerMethodField('full_name')
     phone = serializers.CharField()
-    email = serializers.SerializerMethodField("get_email")
+    email = serializers.SerializerMethodField('get_email')
     avatar = ImageSerializer()
 
     def full_name(self, obj) -> str:
@@ -36,4 +36,4 @@ class ProfileOutSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ["fullName", "email", "phone", "avatar"]
+        fields = ['fullName', 'email', 'phone', 'avatar']

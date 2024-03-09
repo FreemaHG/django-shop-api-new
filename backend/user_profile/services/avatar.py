@@ -1,5 +1,4 @@
 import logging
-from typing import Dict
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,13 +6,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from backend.user_profile.repositories.profile import ProfileRepository
 from backend.user_profile.serializers.avatar import ImageSerializer
 
-
 logger = logging.getLogger(__name__)
+
 
 class AvatarService:
 
     @classmethod
-    def update(cls, user: User, avatar: str) -> Dict | bool:
+    def update(cls, user: User, avatar: str) -> dict | bool:
         """
         Обновление аватара пользователя
         :param user: объект текущего пользователя
@@ -24,7 +23,7 @@ class AvatarService:
             profile = ProfileRepository.get(user=user)
 
         except ObjectDoesNotExist:
-            logging.error("Профиль пользователя не найден")
+            logging.error('Профиль пользователя не найден')
             return False
 
         profile.avatar = avatar
@@ -32,8 +31,8 @@ class AvatarService:
 
         serializer = ImageSerializer(
             data={
-                "src": '/' + str(profile.avatar),
-                "alt": profile.__str__()
+                'src': '/' + str(profile.avatar),
+                'alt': profile.__str__()
             }
         )
 

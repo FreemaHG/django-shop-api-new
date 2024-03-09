@@ -1,5 +1,3 @@
-from typing import Dict
-
 from backend.user_profile.models import Profile
 
 
@@ -54,7 +52,7 @@ class ProfileUpdateBusiness:
         return profile
 
     @classmethod
-    def update(cls, profile: Profile, data: Dict) -> Profile:
+    def update(cls, profile: Profile, data: dict) -> Profile:
         """
         Обновление профиля и данных пользователя
         :param profile: профиль пользователя
@@ -62,7 +60,7 @@ class ProfileUpdateBusiness:
         :return: обновленные профиль
         """
 
-        full_name = data['fullName'].split(" ")
+        full_name = data['fullName'].split(' ')
 
         profile = cls.__update_full_name(profile=profile, full_name=full_name)
         profile = cls.__update_email(profile=profile, email=data['email'])

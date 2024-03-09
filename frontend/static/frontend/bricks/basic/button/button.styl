@@ -17,7 +17,7 @@
 
     $text = text-main           // Цвет шрифта
     $fontSZ = font-nr          // Размер шрифта
-    
+
     btnHover(color=@border-color, text=@color, outline=null)
         border-color: color
         if outline
@@ -44,7 +44,7 @@
     btnSize(addDefault)
         font-size: (@font-size + addDefault)
         padding: ($buttonPadding[0] + addDefault) ($buttonPadding[1] + (2 * addDefault))
-    
+
     display: inline-flex
     align-items: center
     justify-content: center
@@ -68,7 +68,7 @@
     padding-right: 38px
     &:focus
         outline:none
-    
+
     &-icon
         vertical-align: middle
         margin: 0 !important
@@ -94,18 +94,18 @@
         justify-content: center
         align-items: center
         border-radius: 100px
-    
+
     &_round
         border-radius: $round
-        
+
     &_outline
         btnHover: @border-color @color true
-    
+
     &_default
         btnHover: clr-white #8e9096
         border-color: #e0e0e0
-    
-    
+
+
     &_info
         btnHover: clr-info clr-white
     &_square
@@ -119,10 +119,10 @@
 
     &_danger
         btnHover: clr-danger clr-white
-        
+
     &_muted
         btnHover: #e8eaef #7c8088
-        
+
     &_dark
         btnHover:  #a5abba clr-white
     &_narrow
@@ -138,10 +138,10 @@
         min-height: 32px
         padding-left: 20px
         padding-right: 20px
-    
+
     &_md
         btnSize: 3px
-        
+
     &_lg
         btnSize: 7px
 

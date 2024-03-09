@@ -13,4 +13,4 @@ class ImageSerializer(serializers.Serializer):
         return '/' + obj.__str__()
 
     class Meta:
-        fields = ["src", "alt"]
+        fields = ['src', 'alt']

@@ -10,14 +10,14 @@ class PasswordSerializer(serializers.Serializer):
     passwordReply = serializers.CharField()
 
     class Meta:
-        fields = ["password", "passwordReply"]
+        fields = ['password', 'passwordReply']
 
     def validate(self, data):
         """
         Проверка, что пароли совпадают
         """
 
-        if data["password"] != data["passwordReply"]:
-            raise serializers.ValidationError("Пароли не совпадают")
+        if data['password'] != data['passwordReply']:
+            raise serializers.ValidationError('Пароли не совпадают')
 
         return data

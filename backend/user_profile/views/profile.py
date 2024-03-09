@@ -7,9 +7,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from backend.user_profile.serializers.profile import ProfileOutSerializer, ProfileInSerializer
+from backend.user_profile.serializers.profile import (
+    ProfileInSerializer,
+    ProfileOutSerializer,
+)
 from backend.user_profile.services.profile import ProfileService
-
 
 logger = logging.getLogger(__name__)
 
@@ -23,10 +25,10 @@ class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
-        tags=["profile"],
+        tags=['profile'],
         responses={
             200: ProfileOutSerializer,
-            404: "Профиль не найден"
+            404: 'Профиль не найден'
         }
     )
     def get(self, request):
@@ -37,17 +39,17 @@ class ProfileView(APIView):
         profile = ProfileService.get(user=request.user)
 
         if not profile:
-            logger.error("Профиль пользователя не найден")
+            logger.error('Профиль пользователя не найден')
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         return JsonResponse(profile.data)  # Преобразуем и отправляем JSON
 
     @swagger_auto_schema(
-        tags=["profile"],
+        tags=['profile'],
         request_body=ProfileInSerializer,
         responses={
             200: ProfileOutSerializer,
-            404: "Профиль не найден"
+            404: 'Профиль не найден'
         },
     )
     def post(self, request):
@@ -63,5 +65,5 @@ class ProfileView(APIView):
         elif updated_data is False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        logger.info("Данные профайла обновлены")
+        logger.info('Данные профайла обновлены')
         return JsonResponse(updated_data)  # Преобразуем и отправляем JSON

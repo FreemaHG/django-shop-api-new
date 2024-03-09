@@ -10,19 +10,19 @@ from rest_framework.response import Response
 from backend.user_profile.serializers.password import PasswordSerializer
 from backend.user_profile.services.password import PasswordService
 
-
 logger = logging.getLogger(__name__)
 
+
 @swagger_auto_schema(
-    tags=["profile"],
-    methods=["post"],
+    tags=['profile'],
+    methods=['post'],
     request_body=PasswordSerializer,
     responses={
-        200: "Пароль обновлен",
-        400: "Невалидные данные"
+        200: 'Пароль обновлен',
+        400: 'Невалидные данные'
     },
 )
-@api_view(["POST"])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])  # Разрешено только аутентифицированным пользователям
 def update_password(request):
     """
@@ -35,7 +35,7 @@ def update_password(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     else:
-        logger.info("пароль обновлен")
+        logger.info('пароль обновлен')
         login(request=request, user=updated_user)
 
         return Response(status=status.HTTP_200_OK)

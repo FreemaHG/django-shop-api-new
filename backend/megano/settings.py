@@ -12,19 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+from backend.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
+from backend.config import DEBUG as _DEBUG
+from backend.config import DOMEN_HOSTS
 from backend.config import SECRET_KEY as _SECRET_KEY
-from backend.config import (
-    DB_NAME,
-    DB_USER,
-    DB_PASS,
-    DB_HOST,
-    DB_PORT,
-    DEBUG as _DEBUG,
-    REDIS_HOST,
-    REDIS_PORT,
-    DOMEN_HOSTS,
-)
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -73,8 +64,8 @@ ROOT_URLCONF = 'backend.megano.urls'
 
 REST_FRAMEWORK = {
     # Аутентификация
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
     ],
 }
 
@@ -97,28 +88,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.megano.wsgi.application'
 
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "color": {
-            "()": "colorlog.ColoredFormatter",
-            "format": "%(log_color)s%(asctime)-8s %(levelname)s - %(name)s.py | "
-                      "func:%(funcName)s (%(lineno)s) - %(message)s",
-            "log_colors": {
-                "DEBUG": "white",
-                "INFO": "green",
-                "WARNING": "yellow",
-                "ERROR": "red",
-                "CRITICAL": "bold_red",
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'color': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(log_color)s%(asctime)-8s %(levelname)s - %(name)s.py | '
+                      'func:%(funcName)s (%(lineno)s) - %(message)s',
+            'log_colors': {
+                'DEBUG': 'white',
+                'INFO': 'green',
+                'WARNING': 'yellow',
+                'ERROR': 'red',
+                'CRITICAL': 'bold_red',
             },
         }
     },
-    "handlers": {
-        "console": {"class": "logging.StreamHandler", "formatter": "color"},
+    'handlers': {
+        'console': {'class': 'logging.StreamHandler', 'formatter': 'color'},
     },
-    "root": {
-        "handlers": ["console"],
-        "level": "DEBUG",
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
     },
 }
 
@@ -126,13 +117,13 @@ LOGGING = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": DB_NAME,
-        "USER": DB_USER,
-        "PASSWORD": DB_PASS,
-        "HOST": DB_HOST,
-        "PORT": DB_PORT,
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASS,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
 
@@ -175,9 +166,9 @@ STATIC_URL = 'static/'
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, "backend", "static"),)
 
 # Сбор статики командой collectstatic
-STATIC_ROOT = os.path.join(BASE_DIR, "frontend", "static")
+STATIC_ROOT = os.path.join(BASE_DIR, 'frontend', 'static')
 
-MEDIA_ROOT = BASE_DIR / "backend"
+MEDIA_ROOT = BASE_DIR / 'backend'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
