@@ -1,16 +1,14 @@
 import logging
 
-from django.contrib.auth import authenticate, login
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse
+from django.contrib.auth import login
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from backend.user_profile.models import Profile
+from backend.user_profile.serializers.password import PasswordSerializer
+from backend.user_profile.services.password import PasswordService
 
 
 logger = logging.getLogger(__name__)
@@ -19,33 +17,25 @@ logger = logging.getLogger(__name__)
     tags=["profile"],
     methods=["post"],
     request_body=PasswordSerializer,
-    responses={200: "password updated", 400: "Invalid data"},
+    responses={
+        200: "Пароль обновлен",
+        400: "Невалидные данные"
+    },
 )
 @api_view(["POST"])
-@permission_classes(
-    [IsAuthenticated]
-)  # Разрешено только аутентифицированным пользователям
+@permission_classes([IsAuthenticated])  # Разрешено только аутентифицированным пользователям
 def update_password(request):
     """
-    Обновление пароля
+    Обновление пароля от личного кабинета пользователя
     """
-    logging.debug("Обновление пароля")
-    serializer = PasswordSerializer(data=request.data)
 
-    if serializer.is_valid():
-        user = request.user
-        user.set_password(serializer.validated_data["password"])  # Обновляем пароль
-        user.save()
-        logger.info("пароль обновлен")
+    updated_user = PasswordService.update(user=request.user, data=request.data)
 
-        # Аутентификация и авторизация пользователя
-        user = authenticate(
-            username=user.username, password=serializer.validated_data["password"]
-        )
-        login(request, user)
-
-        return Response(status=status.HTTP_200_OK)
+    if not updated_user:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
     else:
-        logging.error(f"Невалидные данные: {serializer.errors}")
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        logger.info("пароль обновлен")
+        login(request=request, user=updated_user)
+
+        return Response(status=status.HTTP_200_OK)
