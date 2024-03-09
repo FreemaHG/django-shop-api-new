@@ -6,8 +6,11 @@ class ImageSerializer(serializers.Serializer):
     Схема для изображений
     """
 
-    src = serializers.CharField()
-    alt = serializers.CharField()
+    src = serializers.SerializerMethodField('get_src')
+    alt = serializers.CharField(default='Аватарка пользователя')
+
+    def get_src(self, obj):
+        return '/' + obj.__str__()
 
     class Meta:
-        fields = '__all__'
+        fields = ["src", "alt"]

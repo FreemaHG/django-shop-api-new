@@ -26,12 +26,12 @@ class ProfileView(APIView):
         tags=["profile"],
         responses={
             200: ProfileOutSerializer,
-            404: "No data found"
+            404: "Профиль не найден"
         }
     )
     def get(self, request):
         """
-        Вывод профайла пользователя
+        Вывод данных профиля текущего пользователя
         """
 
         profile = ProfileService.get(user=request.user)
@@ -47,12 +47,12 @@ class ProfileView(APIView):
         request_body=ProfileInSerializer,
         responses={
             200: ProfileOutSerializer,
-            404: "No data found"
+            404: "Профиль не найден"
         },
     )
     def post(self, request):
         """
-        Обновление профайла пользователя
+        Обновление данных профиля текущего пользователя
         """
 
         updated_data = ProfileService.update(user=request.user, data=request.data)

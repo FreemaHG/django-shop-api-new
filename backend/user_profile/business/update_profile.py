@@ -3,8 +3,6 @@ from typing import Dict
 from backend.user_profile.models import Profile
 
 
-# TODO Вынести логику с обновлением ПРОФИЛЯ в репозиторий в метод update!!!
-# TODO Вынести логику с обновлением ПОЛЬЗОВТАЕЛЯ в репозиторий в метод update!!!
 class ProfileUpdateBusiness:
     """
     Бизнес-логика приложения, связанная с обновлением профайлом
