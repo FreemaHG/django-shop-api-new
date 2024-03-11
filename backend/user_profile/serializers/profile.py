@@ -26,7 +26,7 @@ class ProfileOutSerializer(serializers.ModelSerializer):
     fullName = serializers.SerializerMethodField('full_name')
     phone = serializers.CharField()
     email = serializers.SerializerMethodField('get_email')
-    avatar = ImageSerializer()
+    avatar = ImageSerializer(read_only=True)
 
     def full_name(self, obj) -> str:
         return obj.__str__()

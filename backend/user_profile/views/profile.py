@@ -7,10 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from backend.user_profile.serializers.profile import (
-    ProfileInSerializer,
-    ProfileOutSerializer,
-)
+from backend.user_profile.serializers.profile import ProfileOutSerializer
 from backend.user_profile.services.profile import ProfileService
 
 logger = logging.getLogger(__name__)
@@ -46,7 +43,7 @@ class ProfileView(APIView):
 
     @swagger_auto_schema(
         tags=['profile'],
-        request_body=ProfileInSerializer,
+        request_body=ProfileOutSerializer,
         responses={
             200: ProfileOutSerializer,
             404: 'Профиль не найден'

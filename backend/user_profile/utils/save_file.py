@@ -3,7 +3,7 @@ import os
 
 logger = logging.getLogger(__name__)
 
-_AVATARS_PATH = os.path.join('images', 'avatars')
+AVATARS_PATH = os.path.join('user_profile', 'static', 'images', 'avatars')
 
 
 def avatar_path(instance, filename: str) -> str:
@@ -15,5 +15,5 @@ def avatar_path(instance, filename: str) -> str:
     """
 
     return os.path.join(
-        'user_profile', 'static', _AVATARS_PATH, f'{instance.id}', filename
+        AVATARS_PATH, f'{instance.id}', filename
     )

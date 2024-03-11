@@ -1,4 +1,8 @@
+import logging
+
 from backend.user_profile.models import Profile
+
+logger = logging.getLogger(__name__)
 
 
 class ProfileUpdateBusiness:

@@ -10,7 +10,9 @@ class ImageSerializer(serializers.Serializer):
     alt = serializers.CharField(default='Аватарка пользователя')
 
     def get_src(self, obj):
-        return '/' + obj.__str__()
+        if obj:
+            return '/' + obj.__str__()
+        return ''
 
     class Meta:
         fields = ['src', 'alt']
