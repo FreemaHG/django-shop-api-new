@@ -37,6 +37,11 @@ class CommonTestData(APITestCase):
             'passwordReply': 'new_secret_password'
         }
 
+        self.incorrect_update_data_password = {
+            'password': 'new_secret_password',
+            'passwordReply': 'secret_password'
+        }
+
         test_img = open(os.path.join('backend', 'user_profile', 'tests', 'files', 'test_avatar.png'), 'rb').read()
         self.avatar_name = 'test_avatar.png'
         self.avatar = SimpleUploadedFile(name=self.avatar_name, content=test_img, content_type='image/jpeg')
