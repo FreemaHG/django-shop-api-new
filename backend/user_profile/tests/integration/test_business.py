@@ -1,14 +1,12 @@
 from backend.user_profile.business.update_profile import ProfileUpdateBusiness
 from backend.user_profile.models import Profile
-from backend.user_profile.tests.common_data import FIXTURES_PATH, CommonTestData
+from backend.user_profile.tests.common_data import CommonTestData
 
 
 class TestBusiness(CommonTestData):
     """
     Тестирование бизнес-логики приложения по обновлению данных профиля пользователя
     """
-
-    fixtures = [FIXTURES_PATH]
 
     def test_update_profile(self):
         """

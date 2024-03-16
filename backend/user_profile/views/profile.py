@@ -63,4 +63,5 @@ class ProfileView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         logger.info('Данные профайла обновлены')
+
         return JsonResponse(updated_data)  # Преобразуем и отправляем JSON

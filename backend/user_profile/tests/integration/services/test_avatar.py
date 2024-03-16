@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.test import tag
 
 from backend.user_profile.models import Profile
 from backend.user_profile.serializers.avatar import ImageSerializer
@@ -11,6 +12,7 @@ class TestPasswordServices(CommonTestData):
     Тестирование сервиса, отвечающего за обновление аватара пользователя
     """
 
+    @tag('avatar')
     def test_update_avatar(self):
         """
         Тестирование обновление аватара пользователя

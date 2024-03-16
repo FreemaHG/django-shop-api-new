@@ -46,16 +46,19 @@ class CommonTestData(APITestCase):
         self.avatar_name = 'test_avatar.png'
         self.avatar = SimpleUploadedFile(name=self.avatar_name, content=test_img, content_type='image/jpeg')
 
+        self.user = User.objects.get(username='test_user')
+
     def setUp(self):
         """
         Создаем сеанс аутентификации для пользователя, созданного из фикстур
         """
-        super().setUp()
-        self.user = User.objects.get(username='test_user')
         self.client.force_authenticate(user=self.user)
 
-    def delete_test_avatar(self):
+    def delete_test_avatar(self, avatar_name: str | None = None):
         """
         Удаление изображений с диска после окончания тестов
         """
-        os.remove(os.path.join(MEDIA_ROOT, AVATARS_PATH, str(self.user.id), self.avatar_name))
+        if avatar_name is None:
+            avatar_name = self.avatar_name
+
+        os.remove(os.path.join(MEDIA_ROOT, AVATARS_PATH, str(self.user.id), avatar_name))
