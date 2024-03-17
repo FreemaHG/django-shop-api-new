@@ -3,6 +3,7 @@ import logging
 from django.contrib.auth import get_user_model
 from django.test import tag
 
+from backend.exceptions import InvalidDataResponseException, NotFoundResponseException
 from backend.user_profile.services.profile import ProfileService
 from backend.user_profile.tests.common_data import CommonTestData
 
@@ -33,7 +34,7 @@ class TestProfileServices(CommonTestData):
     @tag('profile', 'get')
     def test_get_profile(self):
         """
-        Тестирование вывода профиля пользователя
+        Проверка вывода профиля пользователя
         """
         control_fields = ['fullName', 'email', 'phone', 'avatar']
 
@@ -43,18 +44,10 @@ class TestProfileServices(CommonTestData):
         self.assertTrue(isinstance(profile, dict))
         self.assertEqual(control_fields, fields_list)
 
-    @tag('profile', 'not_found')
-    def test_get_profile_not_found(self):
-        """
-        Тестирование возвращаемых данных при отсутствии профиля пользователя
-        """
-        result = ProfileService.get(user=self.new_user)
-        self.assertEqual(result, None)
-
     @tag('profile', 'update')
     def test_update_profile(self):
         """
-        Тестирование обновление профиля пользователя
+        Проверка обновления профиля пользователя
         """
         updated_data = ProfileService.update(user=self.user, data=self.update_data_profile)
 
@@ -65,16 +58,25 @@ class TestProfileServices(CommonTestData):
     @tag('profile', 'not_found')
     def test_update_profile_not_found(self):
         """
-        Тестирование ответа, если профиль для обновления не найден
+        Проверка отработки исключения, если профиль для обновления не найден
         """
-        result = ProfileService.update(user=self.new_user, data=self.update_data_profile)
-        self.assertEqual(result, None)
+
+        self.assertRaises(
+            NotFoundResponseException,
+            ProfileService.update,
+            self.new_user,
+            self.update_data_profile
+        )
 
     @tag('profile', 'invalid_data')
     def test_update_profile_invalid_data(self):
         """
-        Тестирование ответа при передаче невалидных данных
+        Проверка отработки исключения при передаче невалидных данных
         """
-        result = ProfileService.update(user=self.new_user, data=self.incorrect_update_data_profile)
 
-        self.assertFalse(result)
+        self.assertRaises(
+            InvalidDataResponseException,
+            ProfileService.update,
+            self.new_user,
+            self.incorrect_update_data_profile
+        )

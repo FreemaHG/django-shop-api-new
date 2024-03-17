@@ -64,6 +64,7 @@ class TestProfileViews(CommonTestData):
         response = self.client.get('/api/profile/')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.json()['detail'], 'Профиль пользователя не найден')
 
     @tag('update', 'profile')
     def test_update_profile_for_auth_user(self):
@@ -103,6 +104,7 @@ class TestProfileViews(CommonTestData):
         response = self.client.post('/api/profile/', data=self.update_data_profile)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.json()['detail'], 'Профиль пользователя не найден')
 
     @tag('update', 'profile', 'invalid_data')
     def test_update_profile_with_invalid_data(self):

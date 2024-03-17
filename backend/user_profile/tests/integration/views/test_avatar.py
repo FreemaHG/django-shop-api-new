@@ -65,3 +65,4 @@ class TestAvatarViews(CommonTestData):
         response = client.post('/api/profile/avatar/', data=self.update_data, format='multipart')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.json()['detail'], 'Профиль пользователя не найден')

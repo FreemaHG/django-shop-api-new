@@ -32,9 +32,6 @@ DEBUG = _DEBUG
 
 ALLOWED_HOSTS = DOMEN_HOSTS
 
-
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,10 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'frontend',
     'rest_framework',
+    'drf_yasg',  # Документация Swagger
     'phone_field',  # Хранение и валидация номеров телефонов в БД
     'django_cleanup.apps.CleanupConfig',  # Автоматическое удаление старых файлов при обновлении моделей
-    'backend.user_profile.apps.UserProfileConfig',
-    'drf_yasg',  # Документация Swagger
+    'backend.user_auth.apps.AuthConfig',  # Регистрация, авторизация, выход из учетной записи пользователя
+    'backend.user_profile.apps.UserProfileConfig',  # Вывод и обновление профиля пользователя
 ]
 
 MIDDLEWARE = [

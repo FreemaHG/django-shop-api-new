@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('frontend.urls')),
     path('api/', include([
         path('profile/', include('backend.user_profile.urls')),
+        path('sign', include('backend.user_auth.urls')),
     ])),
     path(
         'swagger/',

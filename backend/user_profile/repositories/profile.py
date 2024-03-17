@@ -9,10 +9,23 @@ class ProfileRepository:
     """
 
     @classmethod
+    def create(cls, user: User) -> Profile:
+        """
+        Создание профиля пользователя
+        :param user: пользователь
+        :return: профиль пользователя
+        """
+        profile = Profile.objects.create(user=user)
+
+        return profile
+
+    @classmethod
     def get(cls, user: User) -> Profile:
         """
         Возврат профиль пользователя из БД
         :param user: пользователь
-        :return: профайл пользователя
+        :return: профиль пользователя
         """
-        return Profile.objects.get(user=user)
+        profile = Profile.objects.get(user=user)
+
+        return profile

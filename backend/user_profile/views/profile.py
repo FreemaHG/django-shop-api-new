@@ -2,12 +2,17 @@ import logging
 
 from django.http import JsonResponse
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from backend.user_profile.serializers.profile import ProfileOutSerializer
+from backend.serializers import (
+    ResponseInvalidDataSerializer,
+    ResponseNotFoundSerializer,
+)
+from backend.user_profile.serializers.profile import (
+    ProfileInSerializer,
+    ProfileOutSerializer,
+)
 from backend.user_profile.services.profile import ProfileService
 
 logger = logging.getLogger(__name__)
@@ -25,7 +30,7 @@ class ProfileView(APIView):
         tags=['profile'],
         responses={
             200: ProfileOutSerializer,
-            404: 'Профиль не найден'
+            404: ResponseNotFoundSerializer
         }
     )
     def get(self, request):
@@ -35,17 +40,15 @@ class ProfileView(APIView):
 
         profile_data = ProfileService.get(user=request.user)
 
-        if not profile_data:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
         return JsonResponse(profile_data)  # Преобразуем и отправляем JSON
 
     @swagger_auto_schema(
         tags=['profile'],
-        request_body=ProfileOutSerializer,
+        request_body=ProfileInSerializer,
         responses={
             200: ProfileOutSerializer,
-            404: 'Профиль не найден'
+            404: ResponseNotFoundSerializer,
+            400: ResponseInvalidDataSerializer
         },
     )
     def post(self, request):
@@ -54,11 +57,5 @@ class ProfileView(APIView):
         """
 
         updated_data = ProfileService.update(user=request.user, data=request.data)
-
-        if updated_data is None:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        elif updated_data is False:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         return JsonResponse(updated_data)  # Преобразуем и отправляем JSON

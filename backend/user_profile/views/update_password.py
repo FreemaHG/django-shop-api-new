@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from backend.serializers import ResponseInvalidDataSerializer
 from backend.user_profile.serializers.password import PasswordSerializer
 from backend.user_profile.services.password import PasswordService
 
@@ -18,8 +19,8 @@ logger = logging.getLogger(__name__)
     methods=['post'],
     request_body=PasswordSerializer,
     responses={
-        200: 'Пароль обновлен',
-        400: 'Невалидные данные'
+        200: 'Пароль успешно обновлен',
+        400: ResponseInvalidDataSerializer
     },
 )
 @api_view(['POST'])
@@ -30,12 +31,6 @@ def update_password(request):
     """
 
     updated_user = PasswordService.update(user=request.user, data=request.data)
+    login(request=request, user=updated_user)
 
-    if not updated_user:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    else:
-        logger.info('пароль обновлен')
-        login(request=request, user=updated_user)
-
-        return Response(status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_200_OK)

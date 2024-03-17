@@ -1,5 +1,6 @@
 from django.test import tag
 
+from backend.exceptions import InvalidDataResponseException
 from backend.user_profile.services.password import PasswordService
 from backend.user_profile.tests.common_data import CommonTestData
 
@@ -27,9 +28,12 @@ class TestPasswordServices(CommonTestData):
     @tag('password', 'invalid_data')
     def test_invalid_data(self):
         """
-        Проверка ответа при передаче невалидных данных
+        Проверка отработки исключения при передаче невалидных данных
         """
 
-        result = PasswordService.update(user=self.user, data=self.incorrect_update_data_password)
-
-        self.assertFalse(result)
+        self.assertRaises(
+            InvalidDataResponseException,
+            PasswordService.update,
+            self.user,
+            self.incorrect_update_data_password
+        )
