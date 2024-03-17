@@ -1,19 +1,18 @@
 import os
 
-from rest_framework.test import APITestCase
+from django.test import tag
 
 from backend.user_profile.models import Profile
-from backend.user_profile.tests.common_data import FIXTURES_PATH
+from backend.user_profile.tests.common_data import CommonTestData
 from backend.user_profile.utils.save_file import AVATARS_PATH, avatar_path
 
 
-class TestUtils(APITestCase):
+class TestUtils(CommonTestData):
     """
     Тестирование утилит приложения
     """
 
-    fixtures = [FIXTURES_PATH]
-
+    @tag('avatar')
     def test_save_avatar_path(self):
         """
         Проверка корректности составления директории для сохранения аватарок пользователя
@@ -25,3 +24,4 @@ class TestUtils(APITestCase):
         path = avatar_path(instance=profile, filename=avatar_name)
 
         self.assertEqual(control_path, path)
+        self.delete_test_avatar()

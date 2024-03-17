@@ -2,6 +2,7 @@ import json
 import logging
 
 from django.contrib.auth import get_user_model
+from django.test import tag
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -29,6 +30,7 @@ class TestProfileViews(CommonTestData):
             password='test_secret'
         )
 
+    @tag('get', 'profile')
     def test_get_profile_for_auth_user(self):
         """
         Проверка доступности профиля для авторизованного пользователя
@@ -43,6 +45,7 @@ class TestProfileViews(CommonTestData):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(control_result, result)
 
+    @tag('get', 'profile', 'anonymous')
     def test_get_profile_for_anonymous(self):
         """
         Проверка недоступности профиля для неавторизованного пользователя
@@ -52,6 +55,7 @@ class TestProfileViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    @tag('get', 'profile', 'not_found')
     def test_get_profile_not_found(self):
         """
         Проверка ответа при отсутствии профиля пользователя
@@ -61,6 +65,7 @@ class TestProfileViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+    @tag('update', 'profile')
     def test_update_profile_for_auth_user(self):
         """
         Проверка обновления профиля для авторизованного пользователя
@@ -79,6 +84,7 @@ class TestProfileViews(CommonTestData):
         self.assertEqual(response_json['email'], self.update_data_profile['email'])
         self.assertEqual(response_json['phone'], self.update_data_profile['phone'])
 
+    @tag('update', 'profile', 'anonymous')
     def test_update_profile_for_anonymous(self):
         """
         Проверка ответа при попытке обновить профиль для неавторизованного пользователя
@@ -88,6 +94,7 @@ class TestProfileViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    @tag('update', 'profile', 'not_found')
     def test_update_profile_not_found(self):
         """
         Проверка ответа при попытке обновить несуществующий профиль
@@ -97,7 +104,8 @@ class TestProfileViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    def test_update_profile_with_incorrect_data(self):
+    @tag('update', 'profile', 'invalid_data')
+    def test_update_profile_with_invalid_data(self):
         """
         Проверка ответа при попытке обновить профиль невалидными данными
         """

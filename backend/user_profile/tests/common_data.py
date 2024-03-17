@@ -21,32 +21,34 @@ class CommonTestData(APITestCase):
     fixtures = [FIXTURES_PATH]
 
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         """
         Тестовые данные для обновления профайла и пароля
         """
 
-        self.update_data_profile = {
+        cls.control_full_name = 'Васильев Василий Васильевич'
+
+        cls.update_data_profile = {
             'fullName': 'Валентин Валентинов Валентинович',
             'phone': '89027448562',
             'email': 'updated_tester@example.com'
         }
 
-        self.update_data_password = {
+        cls.update_data_password = {
             'password': 'new_secret_password',
             'passwordReply': 'new_secret_password'
         }
 
-        self.incorrect_update_data_password = {
+        cls.incorrect_update_data_password = {
             'password': 'new_secret_password',
             'passwordReply': 'secret_password'
         }
 
         test_img = open(os.path.join('backend', 'user_profile', 'tests', 'files', 'test_avatar.png'), 'rb').read()
-        self.avatar_name = 'test_avatar.png'
-        self.avatar = SimpleUploadedFile(name=self.avatar_name, content=test_img, content_type='image/jpeg')
+        cls.avatar_name = 'test_avatar.png'
+        cls.avatar = SimpleUploadedFile(name=cls.avatar_name, content=test_img, content_type='image/jpeg')
 
-        self.user = User.objects.get(username='test_user')
+        cls.user = User.objects.get(username='test_user')
 
     def setUp(self):
         """
@@ -61,4 +63,10 @@ class CommonTestData(APITestCase):
         if avatar_name is None:
             avatar_name = self.avatar_name
 
-        os.remove(os.path.join(MEDIA_ROOT, AVATARS_PATH, str(self.user.id), avatar_name))
+        delete_file = os.path.join(MEDIA_ROOT, AVATARS_PATH, str(self.user.id), avatar_name)
+
+        try:
+            os.remove(delete_file)
+
+        except FileNotFoundError:
+            logger.error(f'Файл для удаления не найден: {delete_file}')

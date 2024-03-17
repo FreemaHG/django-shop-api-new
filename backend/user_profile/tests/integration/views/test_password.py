@@ -1,3 +1,4 @@
+from django.test import tag
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -9,6 +10,7 @@ class TestPasswordViews(CommonTestData):
     Тестирование представлений, отвечающих за обновление пароля пользователя
     """
 
+    @tag('update', 'password', 'anonymous')
     def test_update_password_for_anonymous(self):
         """
         Проверка ответа при попытке обновить пароль неавторизованным пользователем
@@ -18,6 +20,7 @@ class TestPasswordViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    @tag('update', 'password')
     def test_update_password(self):
         """
         Проверка обновления пароля
@@ -26,7 +29,8 @@ class TestPasswordViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_update_password_error(self):
+    @tag('update', 'password', 'invalid_data')
+    def test_update_password_invalid_data(self):
         """
         Проверка ответа при передаче невалидных данных
         """

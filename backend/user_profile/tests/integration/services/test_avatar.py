@@ -12,7 +12,7 @@ class TestPasswordServices(CommonTestData):
     Тестирование сервиса, отвечающего за обновление аватара пользователя
     """
 
-    @tag('avatar')
+    @tag('avatar', 'update')
     def test_update_avatar(self):
         """
         Тестирование обновление аватара пользователя
@@ -27,6 +27,7 @@ class TestPasswordServices(CommonTestData):
         self.assertTrue(serializer.is_valid())
         self.assertTrue(isinstance(avatar_data, dict))
 
+    @tag('avatar', 'error')
     def test_update_avatar_error(self):
         """
         Тестирование ответа при обновлении аватара в несуществующем профиле

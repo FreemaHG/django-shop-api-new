@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.test import tag
 from rest_framework.test import APITestCase
 
 from backend.user_profile.models import Profile
@@ -8,11 +9,12 @@ from backend.user_profile.tests.common_data import FIXTURES_PATH
 
 class TestRepositories(APITestCase):
     """
-    Тестирование методов по созданию, чтению, обновлению и удалению профиля пользователя
+    Тестирование метода по чтению профиля пользователя
     """
 
     fixtures = [FIXTURES_PATH]
 
+    @tag('get', 'profile')
     def test_get_profile(self):
         """
         Проверка корректности поиска и возврата профиля пользователя

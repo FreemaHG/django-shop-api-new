@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth import get_user_model
+from django.test import tag
 
 from backend.user_profile.serializers.profile import ProfileOutSerializer
 from backend.user_profile.services.profile import ProfileService
@@ -30,6 +31,7 @@ class TestProfileServices(CommonTestData):
             password='test_secret'
         )
 
+    @tag('profile', 'get')
     def test_get_profile(self):
         """
         Тестирование вывода профиля пользователя
@@ -42,13 +44,15 @@ class TestProfileServices(CommonTestData):
         self.assertTrue(isinstance(profile, ProfileOutSerializer))
         self.assertEqual(control_fields, fields_list)
 
-    def test_get_profile_error(self):
+    @tag('profile', 'not_found')
+    def test_get_profile_not_found(self):
         """
         Тестирование возвращаемых данных при отсутствии профиля пользователя
         """
         result = ProfileService.get(user=self.new_user)
         self.assertEqual(result, None)
 
+    @tag('profile', 'update')
     def test_update_profile(self):
         """
         Тестирование обновление профиля пользователя
@@ -59,6 +63,7 @@ class TestProfileServices(CommonTestData):
         self.assertEqual(updated_data['email'], self.update_data_profile['email'])
         self.assertEqual(updated_data['phone'], self.update_data_profile['phone'])
 
+    @tag('profile', 'not_found')
     def test_update_profile_not_found(self):
         """
         Тестирование ответа, если профиль для обновления не найден
@@ -66,9 +71,11 @@ class TestProfileServices(CommonTestData):
         result = ProfileService.update(user=self.new_user, data=self.update_data_profile)
         self.assertEqual(result, None)
 
+    @tag('profile', 'invalid_data')
     def test_update_profile_invalid_data(self):
         """
         Тестирование ответа при передаче невалидных данных
         """
         result = ProfileService.update(user=self.new_user, data=self.incorrect_update_data_profile)
+
         self.assertFalse(result)
