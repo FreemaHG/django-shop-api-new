@@ -26,7 +26,7 @@
                 <img :src="product?.images ? product.images[activePhoto].src : null" :alt="product?.images ? product.images[activePhoto].alt : null"/>
               </div>
               <!-- Основное фото -->
-              
+
               <!-- Миниатюры -->
               <div class="ProductCard-picts">
                 <a v-for="(image, index) in product.images" class="ProductCard-pict" :class="{'ProductCard-pict_ACTIVE': activePhoto === index}" @click.prevent="setActivePhoto(index)">
@@ -96,7 +96,7 @@
               <div class="Tabs-block" id="description">
                 <div v-html="product.fullDescription"></div>
 
-                
+
                 <div class="clearfix">
                 </div>
                 <div class="table">

@@ -4,7 +4,7 @@
     $fontWeight = 800       // Жирность шрифта меню
     $fontSize = font-nrm    // Размер шрифта меню
     $clrHoverLink = clr-primary // Цвет подчеркивания при наведении на ссылку в меню
-    
+
     clearfix()
     width: 100%
     position: relative
@@ -90,7 +90,7 @@
             font-weight: $fontWeight;
             font-size: $fontSize;
             line-height: 1.2em;
-            
+
             &_ACTIVE
             &_trigger
                 a
@@ -132,7 +132,7 @@
                         right: 0
                         transition left 400ms cubic-bezier(0.215, 0.61, 0.355, 1),
                         right 400ms cubic-bezier(0.215, 0.61, 0.355, 1)
-        
+
     &_hz
         width: auto
         +e(-item)
@@ -152,9 +152,9 @@
                 padding-left: 0
             &:first-child
                 margin-left: 0
-                
+
     &_split
-        
+
         &{b()}_hz
             +e(-item)
                 position: relative
@@ -237,7 +237,7 @@
                 a:hover
                     img
                         transform: scale(1.5)
-    
+
     &_main
         @extend {e(_hz)}
         display: flex
@@ -351,7 +351,3 @@
             padding: 0 8px 0px
             letter-spacing: -0.5px
             line-height: 35px
-
-
-
-

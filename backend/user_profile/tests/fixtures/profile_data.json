@@ -1,0 +1,23 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "test_user",
+            "first_name": "Василий",
+            "last_name": "Васильев",
+            "email": "tester@example.com",
+            "password": "secret_password"
+        }
+    },
+    {
+        "model": "user_profile.profile",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "patronymic": "Васильевич",
+            "phone": "89027448560",
+            "avatar": "user_profile/static/images/avatars/1/test_avatar.jpg"
+        }
+    }
+]

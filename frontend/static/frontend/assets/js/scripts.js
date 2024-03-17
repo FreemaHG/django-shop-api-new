@@ -138,7 +138,7 @@ var form = function(){
                 $radio.on('change', function(){
                     changeTitle($this, $(this));
                 });
-                
+
             });
             $(document).on('click', function(e){
                 var $this = $(e.target);
@@ -152,7 +152,7 @@ var form = function(){
                     $('.selectList').removeClass('selectList_OPEN');
                 }
             });
-            
+
             // Валидация полей
             $input.on('blur', function(){
                 var $this = $(this),
@@ -175,7 +175,7 @@ var form = function(){
                                 error = true;
                             }
                             break;
-                            
+
                     }
                     if (error) {
                         if ($this.hasClass('form-input')){
@@ -195,13 +195,13 @@ var form = function(){
                         $this.data('errorinput', false);
                     }
                     message = '';
-                
+
                 });
             });
             $form.on('submit', function(e){
                 var $this = $(this),
                     $validate = $this.find('[data-validate]');
-                
+
                 $validate.each(function(){
                     var $this = $(this);
                     $this.trigger('blur');
@@ -287,7 +287,7 @@ var range = function(){
         init: function(){
             var $range = $('.range'),
                 $line = $range.find('.range-line');
-            
+
             $line.ionRangeSlider({
                 onStart: function(data){
                     $('.rangePrice').text('$' + data.from + ' - $' + data.to)
@@ -615,18 +615,18 @@ var Profile = function(){
                     ext = file.name.split('.').pop();
                     if (ext==='png' || ext==='jpg' || ext==='gif') {
                         var reader = new FileReader();
-    
+
                         reader.onload = function(e) {
                             $(input).closest($avatar).find('.Profile-img img').attr('src', e.target.result);
                         }
-    
+
                         reader.readAsDataURL(file);
                         return true;
                     }
                     return false;
                 }
             }
-            
+
             $avatarfile.change(function() {
                 var $thisAvatar = $(this).closest($avatar);
                 if(readURL(this)){
@@ -705,7 +705,7 @@ var Order = function(){
                         .closest('.menu-item')
                         .addClass('menu-item_ACTIVE');
                 }
-                
+
             });
         }
     };
@@ -736,7 +736,7 @@ var Payment = function(){
             $('.Payment-pay .btn').on('click', function(e){
                 var $this = $(this),
                     $validate = $this.closest('.form').find('[data-validate]');
-    
+
                 $validate.each(function(){
                     var $this = $(this);
                     $this.trigger('blur');

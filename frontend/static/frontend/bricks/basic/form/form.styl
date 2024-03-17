@@ -20,7 +20,7 @@ input_text()
     + textarea
     + select
         margin-top: 20px
-        
+
 /*----------  Поля формы  ----------*/
 buttonPadding = 10px
 
@@ -62,7 +62,7 @@ select
 [type="radio"]
     border-radius: 100px;
 
-    
+
 /*-----------  Формы  -----------*/
 .{$px}form
     $fontSzLabel = font-sm              // Размер шрифта для тега label
@@ -74,7 +74,7 @@ select
     $bgColor     = #f9fafc              // Фон полей в форме
     $paddingBox = $input-padding        // Поля для input и textarea
     $spaceBetween = 25px    // Расстояние между группами по вертикали
-    
+
     margin-top: 39px
     display: block
     width: 100%
@@ -93,7 +93,7 @@ select
             border-color: clr-danger
         &:focus
             outline:none
-    
+
     +e(-textarea)
         width: 100%
         height: ($heightInput * 2)
@@ -141,18 +141,18 @@ select
                 border-radius: 0 $borderRadius+3 $borderRadius+3 0
                 width: 40px
                 background: $bgColor img('icons','arrowMuted.svg') center center no-repeat
-        
-    
-    
-    
+
+
+
+
     +e(-btn)
         margin-top: 20px
-    
+
     &-error
         font-size: font-nrm
         color: clr-danger
-    
-    
+
+
     &-label
         display: block
         color: text-muted
@@ -169,9 +169,9 @@ select
     &_contacts
         +e(-input)
             min-width: auto
-    
 
-    
+
+
 // Выпадающие списки
 .{$px}selectList
     position: relative
@@ -212,15 +212,15 @@ select
         align-items: center
         & + &
             margin-top: 7px
-            
+
 // Чекбоксы
 .{$px}toggle
     $borderRadiusCheck = 3px    // Скругление углов у чекбоксов
     $width = 17px               // Ширина чекбокса
     $height = $width            // Высота чекбокса
-    
+
     $borderRadiusRadio = 100px  // Скругление углов у чекбоксов
-    
+
     position: relative
     z-index: 100;
     width: auto
@@ -263,7 +263,7 @@ select
             border-radius: @border-radius
             left: 2px
             top: 2px
-            
+
     [type="radio"]
     [type="checkbox"]
         opacity: 0
@@ -275,7 +275,7 @@ select
         z-index: 10
         cursor: pointer
         display: inline-block
-    
+
         &:checked
             + {e(-box)}
                 border-color: #1e7cc4
@@ -287,22 +287,21 @@ select
             border-radius: $borderRadiusRadio
             &:after
                 border-radius: $borderRadiusRadio
-                
+
 placeholder(fzSize, color)
     color: color;
     font-size: fzSize
     line-height: 1.5em
-    
+
 $fontSzInput = font-nrp             // Размер шрифта внутри input
 ::-webkit-input-placeholder
     placeholder: $fontSzInput #777777
 
 ::-moz-placeholder
     placeholder: $fontSzInput #777777
-    
+
 :-moz-placeholder
     placeholder: $fontSzInput #777777
 
 :-ms-input-placeholder
     placeholder: $fontSzInput #777777
-
