@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 
 from backend.user_profile.repositories.profile import ProfileRepository
@@ -28,6 +29,9 @@ class AvatarService:
 
         profile.avatar = avatar
         profile.save()
+
+        cache.delete('profile')
+        logger.info('Кэш профиля очищен')
 
         serializer = ImageSerializer(
             data={

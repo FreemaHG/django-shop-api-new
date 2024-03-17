@@ -3,7 +3,6 @@ import logging
 from django.contrib.auth import get_user_model
 from django.test import tag
 
-from backend.user_profile.serializers.profile import ProfileOutSerializer
 from backend.user_profile.services.profile import ProfileService
 from backend.user_profile.tests.common_data import CommonTestData
 
@@ -39,9 +38,9 @@ class TestProfileServices(CommonTestData):
         control_fields = ['fullName', 'email', 'phone', 'avatar']
 
         profile = ProfileService.get(user=self.user)
-        fields_list = list(profile.fields.keys())
+        fields_list = list(profile.keys())
 
-        self.assertTrue(isinstance(profile, ProfileOutSerializer))
+        self.assertTrue(isinstance(profile, dict))
         self.assertEqual(control_fields, fields_list)
 
     @tag('profile', 'not_found')

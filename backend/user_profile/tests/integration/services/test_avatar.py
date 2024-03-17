@@ -15,7 +15,7 @@ class TestPasswordServices(CommonTestData):
     @tag('avatar', 'update')
     def test_update_avatar(self):
         """
-        Тестирование обновление аватара пользователя
+        Проверка обновления аватара пользователя
         """
 
         avatar_data = AvatarService.update(user=self.user, avatar=self.avatar_name)
@@ -30,7 +30,7 @@ class TestPasswordServices(CommonTestData):
     @tag('avatar', 'error')
     def test_update_avatar_error(self):
         """
-        Тестирование ответа при обновлении аватара в несуществующем профиле
+        Проверка ответа при обновлении аватара в несуществующем профиле
         """
 
         new_user = get_user_model().objects.create_user(

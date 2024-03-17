@@ -33,13 +33,12 @@ class ProfileView(APIView):
         Вывод данных профиля текущего пользователя
         """
 
-        profile = ProfileService.get(user=request.user)
+        profile_data = ProfileService.get(user=request.user)
 
-        if not profile:
-            logger.error('Профиль пользователя не найден')
+        if not profile_data:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        return JsonResponse(profile.data)  # Преобразуем и отправляем JSON
+        return JsonResponse(profile_data)  # Преобразуем и отправляем JSON
 
     @swagger_auto_schema(
         tags=['profile'],
@@ -61,7 +60,5 @@ class ProfileView(APIView):
 
         elif updated_data is False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        logger.info('Данные профайла обновлены')
 
         return JsonResponse(updated_data)  # Преобразуем и отправляем JSON

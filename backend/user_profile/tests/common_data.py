@@ -2,6 +2,7 @@ import logging
 import os
 
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.test import APITestCase
 
@@ -52,9 +53,11 @@ class CommonTestData(APITestCase):
 
     def setUp(self):
         """
-        Создаем сеанс аутентификации для пользователя, созданного из фикстур
+        Создание сеанса аутентификации для пользователя, созданного из фикстур
+        Очистка кэша
         """
         self.client.force_authenticate(user=self.user)
+        cache.clear()
 
     def delete_test_avatar(self, avatar_name: str | None = None):
         """
