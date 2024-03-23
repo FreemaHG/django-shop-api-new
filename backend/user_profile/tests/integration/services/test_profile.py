@@ -16,17 +16,17 @@ class TestProfileServices(CommonTestData):
     """
 
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         """
         Тестовые данные для обновления профайла и пароля
         """
         super().setUpTestData()
 
-        self.incorrect_update_data_profile = {
+        cls.incorrect_update_data_profile = {
             'incorrect_field': 123
         }
 
-        self.new_user = get_user_model().objects.create_user(
+        cls.new_user = get_user_model().objects.create_user(
             username='new_user',
             password='test_secret'
         )

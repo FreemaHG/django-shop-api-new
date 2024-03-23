@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.test import tag
 from rest_framework.test import APITestCase
@@ -24,4 +25,20 @@ class TestRepositories(APITestCase):
 
         profile = ProfileRepository.get(user=user)
 
+        self.assertTrue(isinstance(profile, Profile))
         self.assertEqual(control_profile, profile)
+
+    @tag('create', 'profile')
+    def test_create_profile(self):
+        """
+        Проверка корректности создания профиля пользователя
+        """
+        new_user = get_user_model().objects.create_user(
+            username='new_user',
+            password='test_secret'
+        )
+
+        new_profile = ProfileRepository.create(user=new_user)
+
+        self.assertTrue(isinstance(new_profile, Profile))
+        self.assertEqual(new_profile.user, new_user)
