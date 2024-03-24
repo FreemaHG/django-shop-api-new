@@ -3,6 +3,7 @@ import logging
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
+from backend.exceptions import InvalidDataResponseException
 from backend.user_profile.serializers.password import PasswordSerializer
 
 logger = logging.getLogger(__name__)
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 class PasswordService:
 
     @classmethod
-    def update(cls, user: User, data: dict) -> User | bool:
+    def update(cls, user: User, data: dict) -> User:
         """
         Обновление пароля пользователя
         :param user: объект текущего пользователя
@@ -31,9 +32,9 @@ class PasswordService:
                 password=serializer.validated_data['password']
             )
 
+            logger.info('пароль обновлен')
             return user
 
         else:
             logging.error(f'Невалидные данные: {serializer.errors}')
-
-            return False
+            raise InvalidDataResponseException(detail=serializer.errors)

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 
+from backend.exceptions import InvalidDataResponseException, NotFoundResponseException
 from backend.user_profile.business.update_profile import ProfileUpdateBusiness
 from backend.user_profile.repositories.profile import ProfileRepository
 from backend.user_profile.serializers.profile import (
@@ -15,13 +16,16 @@ logger = logging.getLogger(__name__)
 
 
 class ProfileService:
+    """
+    Вывод данных и обновление профиля пользователя
+    """
 
     @classmethod
     def get(cls, user: User) -> dict | None:
         """
         Возврат профиля пользователя
         :param user: объект текущего пользователя
-        :return: профайл либо None
+        :return: словарь с данными профиля
         """
 
         cached_data = cache.get('profile')
@@ -36,7 +40,7 @@ class ProfileService:
 
             except ObjectDoesNotExist:
                 logger.error('Профиль пользователя не найден')
-                return None
+                raise NotFoundResponseException(detail='Профиль пользователя не найден')
 
             profile_data = ProfileOutSerializer(profile)
             cache.set('profile', profile_data.data)
@@ -44,12 +48,12 @@ class ProfileService:
             return profile_data.data
 
     @classmethod
-    def update(cls, user: User, data: dict) -> dict | None | bool:
+    def update(cls, user: User, data: dict) -> dict:
         """
         Обновление профиля пользователя
         :param user: объект текущего пользователя
         :param data: новые данные
-        :return: обновленные данные профиля
+        :return: словарь с обновленными данными профиля
         """
 
         serializer = ProfileInSerializer(data=data)
@@ -60,7 +64,7 @@ class ProfileService:
 
             except ObjectDoesNotExist:
                 logger.error('Профиль пользователя не найден')
-                return None
+                raise NotFoundResponseException(detail='Профиль пользователя не найден')
 
             updated_profile = ProfileUpdateBusiness.update(profile=profile, data=serializer.validated_data)
             logger.info('Данные профайла обновлены')
@@ -74,4 +78,4 @@ class ProfileService:
 
         else:
             logging.error(f'Невалидные данные: {serializer.errors}')
-            return False
+            raise InvalidDataResponseException(detail=serializer.errors)

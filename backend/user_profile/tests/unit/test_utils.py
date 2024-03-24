@@ -12,7 +12,7 @@ class TestUtils(CommonTestData):
     Тестирование утилит приложения
     """
 
-    @tag('avatar')
+    @tag('avatar', 'utils')
     def test_save_avatar_path(self):
         """
         Проверка корректности составления директории для сохранения аватарок пользователя

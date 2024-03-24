@@ -33,7 +33,7 @@ class TestAvatarViews(CommonTestData):
                                                 content=update_img, content_type='image/jpeg')
         self.update_data = {'avatar': self.update_avatar}
 
-    @tag('update', 'avatar', 'anonymous')
+    @tag('update', 'avatar', 'anonymous', 'views')
     def test_update_avatar_for_anonymous(self):
         """
         Проверка ответа при попытке обновить аватар неавторизованным пользователем
@@ -46,7 +46,7 @@ class TestAvatarViews(CommonTestData):
         # Удаляем аватарку с физического накопителя
         self.delete_test_avatar(avatar_name=self.update_avatar_name)
 
-    @tag('update', 'avatar')
+    @tag('update', 'avatar', 'views')
     def test_update_avatar(self):
         """
         Проверка обновления аватара пользователя
@@ -55,7 +55,7 @@ class TestAvatarViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @tag('update', 'avatar', 'not_found')
+    @tag('update', 'avatar', 'not_found', 'views')
     def test_update_avatar_not_found(self):
         """
         Проверка ответа при попытке обновить аватар несуществующего профиля
@@ -65,3 +65,4 @@ class TestAvatarViews(CommonTestData):
         response = client.post('/api/profile/avatar/', data=self.update_data, format='multipart')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.json()['detail'], 'Профиль пользователя не найден')

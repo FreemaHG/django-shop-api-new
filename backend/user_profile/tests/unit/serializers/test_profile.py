@@ -10,7 +10,7 @@ class TestProfileSerializer(CommonTestData):
     Тестирование схемы для вывода данных профиля
     """
 
-    @tag('profile')
+    @tag('profile', 'serializers')
     def test_out_data(self):
         """
         Проверка возвращаемых данных

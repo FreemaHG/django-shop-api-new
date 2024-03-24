@@ -10,7 +10,7 @@ class TestAvatarSerializer(CommonTestData):
     Тестирование схемы для вывода данных об аватарке пользователя
     """
 
-    @tag('avatar')
+    @tag('avatar', 'serializers')
     def test_out_avatar_data(self):
         """
         Проверка возвращаемых данных

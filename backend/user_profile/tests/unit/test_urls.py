@@ -10,7 +10,7 @@ class TestUrlsName(CommonTestData):
     Тестирование доступности url-адресов по urlname
     """
 
-    @tag('profile')
+    @tag('profile', 'urls')
     def test_profile_urlname(self):
         """
         Проверка доступности профиля
@@ -18,7 +18,7 @@ class TestUrlsName(CommonTestData):
         response = self.client.get(reverse('profile'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @tag('profile', 'update')
+    @tag('profile', 'update', 'urls')
     def test_profile_update_urlname(self):
         """
         Проверка обновления профиля
@@ -26,7 +26,7 @@ class TestUrlsName(CommonTestData):
         response = self.client.post(reverse('profile'), data=self.update_data_profile)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @tag('avatar', 'update')
+    @tag('avatar', 'update', 'urls')
     def test_update_avatar_urlname(self):
         """
         Проверка обновления аватара
@@ -36,7 +36,7 @@ class TestUrlsName(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @tag('password', 'update')
+    @tag('password', 'update', 'urls')
     def test_update_password_urlname(self):
         """
         Проверка обновления пароля

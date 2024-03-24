@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import tag
 
+from backend.exceptions import NotFoundResponseException
 from backend.user_profile.models import Profile
 from backend.user_profile.serializers.avatar import ImageSerializer
 from backend.user_profile.services.avatar import AvatarService
@@ -12,7 +13,7 @@ class TestPasswordServices(CommonTestData):
     Тестирование сервиса, отвечающего за обновление аватара пользователя
     """
 
-    @tag('avatar', 'update')
+    @tag('avatar', 'update', 'services')
     def test_update_avatar(self):
         """
         Проверка обновления аватара пользователя
@@ -27,7 +28,7 @@ class TestPasswordServices(CommonTestData):
         self.assertTrue(serializer.is_valid())
         self.assertTrue(isinstance(avatar_data, dict))
 
-    @tag('avatar', 'error')
+    @tag('avatar', 'exception', 'services')
     def test_update_avatar_error(self):
         """
         Проверка ответа при обновлении аватара в несуществующем профиле
@@ -38,5 +39,9 @@ class TestPasswordServices(CommonTestData):
             password='test_secret'
         )
 
-        result = AvatarService.update(user=new_user, avatar=self.avatar_name)
-        self.assertFalse(result)
+        self.assertRaises(
+            NotFoundResponseException,
+            AvatarService.update,
+            new_user,
+            self.avatar_name
+        )
