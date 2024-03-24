@@ -1,5 +1,5 @@
 ////////////////////////////////////////////
-// 
+//
 //    Countdown
 //    v5.3 - 2016-12-08 23:02
 //
@@ -30,7 +30,7 @@ var CountdownLabels = {
 	hour	: "HOURS",
 	day 	: "DAYS",
 	month 	: "MONTHS",
-	year 	: "YEARS"	
+	year 	: "YEARS"
 };
 
 var CountdownInterval = 76;

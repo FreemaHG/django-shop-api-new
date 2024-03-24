@@ -17,7 +17,7 @@
     $label_color_2 = white
     $grid_color_1 = #e1e4e9
     $grid_color_2 = #999
-    
+
     &-price
         visibility: visible
         background-color: #eceef3
@@ -48,7 +48,7 @@
         position: relative;
         display: block;
     }
-    
+
     pos-a() {
         position: absolute;
         display: block;
@@ -58,8 +58,8 @@
         -webkit-touch-callout: none;
         no-click();
         height: 40px
-        
-    
+
+
         &-line {
             pos-r();
             overflow: hidden;
@@ -69,7 +69,7 @@
             background-color: $line_color;
             border-radius: $custom_radius;
         }
-    
+
         &-bar {
             pos-a();
             left: 0;
@@ -86,12 +86,12 @@
                 display: block
                 background-color: $bar_color;
             }
-    
+
             &--single {
                 border-radius: $custom_radius 0 0 $custom_radius;
             }
         }
-    
+
         &-shadow {
             position: absolute;
             display: none;
@@ -101,7 +101,7 @@
             bottom: $bottom;
             background-color: $line_color;
         }
-    
+
         &-handle {
             pos-a();
             box-sizing: border-box;
@@ -140,23 +140,23 @@
                     background-color: $handle_color_2;
                 }
             }
-    
+
             &.single,
             &.from,
             &.to {}
-            
+
             &.from {
                 margin-left: -7px
             }
             &.to {
                 margin-left: 8px
             }
-    
+
             &.type_last {
                 z-index: 2;
             }
         }
-    
+
         &-min,
         &-max {
             pos-a();
@@ -170,15 +170,15 @@
             background-color: $minmax_bg_color;
             border-radius: $custom_radius;
         }
-    
+
         &-min {
             left: 0;
         }
-    
+
         &-max {
             right: 0;
         }
-    
+
         &-from,
         &-to,
         &-single {
@@ -208,7 +208,7 @@
                border-top-color: $label_color_1;
            }
         }
-    
+
         &-grid {
             position: absolute;
             display: none;
@@ -216,11 +216,11 @@
             left: 0;
             width: 100%;
             height: 20px;
-    
+
             .irs-with-grid & {
                 display: block;
             }
-    
+
             &-pol {
                 position: absolute;
                 top: 0;
@@ -228,13 +228,13 @@
                 width: 1px;
                 height: 8px;
                 background: $grid_color_1;
-               
-    
+
+
                 &.small {
                     height: 4px;
                 }
             }
-    
+
             &-text {
                 position: absolute;
                 bottom: 0;
@@ -247,7 +247,7 @@
                 color: $grid_color_2;
             }
         }
-    
+
         &-disable-mask {
             pos-a();
             top: 0;
@@ -257,18 +257,18 @@
             cursor: default;
             background: rgba(0,0,0,0.0);
             z-index: 2;
-    
+
             .lt-ie9 & {
                 background: #000;
                 filter: unquote('alpha(opacity=0)');
                 cursor: not-allowed;
             }
         }
-    
+
         &-disabled {
             opacity: 0.4;
         }
-    
+
         &-hidden-input {
             position: absolute !important;
             display: block !important;

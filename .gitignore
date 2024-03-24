@@ -131,3 +131,5 @@ dmypy.jsong
 .env
 static_volume
 media_volume
+/.idea/
+/frontend/static/images
