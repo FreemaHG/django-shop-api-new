@@ -57,3 +57,14 @@ class TestUrlsName(CommonTestData):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    @tag('logout', 'urls')
+    def test_logout_urlname(self):
+        """
+        Проверка доступности URL для выхода из учетной записи
+        """
+
+        self.client.force_authenticate(user=self.new_user)
+        response = self.client.post(reverse('sign-out'))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

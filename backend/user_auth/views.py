@@ -1,10 +1,10 @@
 import logging
 
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from backend.serializers import ResponseInvalidDataSerializer
@@ -34,7 +34,7 @@ def registration(request):
 
     data = reading_data_from_request(raw_data=request.data)
     authenticated_user = RegistrationService.registration(data=data)
-    logging.info('Пользователь зарегистрирован')
+    logging.info('Пользователь успешно зарегистрирован')
 
     login(request, authenticated_user)  # Авторизация нового пользователя
 
@@ -61,6 +61,27 @@ def user_login(request):
 
     authenticated_user = LoginService.login(data=data)
     login(request, authenticated_user)
-    logging.info('Пользователь авторизован')
+    logging.info('Пользователь успешно авторизован')
+
+    return Response(status=status.HTTP_200_OK)
+
+
+@swagger_auto_schema(
+    tags=['auth'],
+    method='post',
+    responses={
+        200: 'Пользователь вышел из учетной записи',
+        403: 'The user is not logged in',
+    },
+)
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Разрешено только аутентифицированным пользователям
+def user_logout(request):
+    """
+    Выход из учетной записи пользователя
+    """
+
+    logout(request)
+    logging.info('Пользователь вышел из учетной записи')
 
     return Response(status=status.HTTP_200_OK)
