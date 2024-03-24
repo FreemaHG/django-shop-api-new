@@ -30,7 +30,7 @@ class TestProfileViews(CommonTestData):
             password='test_secret'
         )
 
-    @tag('get', 'profile')
+    @tag('get', 'profile', 'views')
     def test_get_profile_for_auth_user(self):
         """
         Проверка доступности профиля для авторизованного пользователя
@@ -45,7 +45,7 @@ class TestProfileViews(CommonTestData):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(control_result, result)
 
-    @tag('get', 'profile', 'anonymous')
+    @tag('get', 'profile', 'anonymous', 'views')
     def test_get_profile_for_anonymous(self):
         """
         Проверка недоступности профиля для неавторизованного пользователя
@@ -55,7 +55,7 @@ class TestProfileViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    @tag('get', 'profile', 'not_found')
+    @tag('get', 'profile', 'not_found', 'views')
     def test_get_profile_not_found(self):
         """
         Проверка ответа при отсутствии профиля пользователя
@@ -66,7 +66,7 @@ class TestProfileViews(CommonTestData):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.json()['detail'], 'Профиль пользователя не найден')
 
-    @tag('update', 'profile')
+    @tag('update', 'profile', 'views')
     def test_update_profile_for_auth_user(self):
         """
         Проверка обновления профиля для авторизованного пользователя
@@ -85,7 +85,7 @@ class TestProfileViews(CommonTestData):
         self.assertEqual(response_json['email'], self.update_data_profile['email'])
         self.assertEqual(response_json['phone'], self.update_data_profile['phone'])
 
-    @tag('update', 'profile', 'anonymous')
+    @tag('update', 'profile', 'anonymous', 'views')
     def test_update_profile_for_anonymous(self):
         """
         Проверка ответа при попытке обновить профиль для неавторизованного пользователя
@@ -95,7 +95,7 @@ class TestProfileViews(CommonTestData):
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    @tag('update', 'profile', 'not_found')
+    @tag('update', 'profile', 'not_found', 'views')
     def test_update_profile_not_found(self):
         """
         Проверка ответа при попытке обновить несуществующий профиль
@@ -106,7 +106,7 @@ class TestProfileViews(CommonTestData):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.json()['detail'], 'Профиль пользователя не найден')
 
-    @tag('update', 'profile', 'invalid_data')
+    @tag('update', 'profile', 'invalid_data', 'views')
     def test_update_profile_with_invalid_data(self):
         """
         Проверка ответа при попытке обновить профиль невалидными данными

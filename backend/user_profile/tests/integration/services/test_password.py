@@ -10,7 +10,7 @@ class TestPasswordServices(CommonTestData):
     Тестирование сервиса, отвечающего за обновление пароля от личного кабинета пользователя
     """
 
-    @tag('password', 'update')
+    @tag('password', 'update', 'services')
     def test_update_password(self):
         """
         Проверка обновления пароля
@@ -25,7 +25,7 @@ class TestPasswordServices(CommonTestData):
         self.assertFalse(self.user.check_password(old_password))  # Проверяем, что старый пароль больше не действителен
         self.assertTrue(self.user.check_password(new_password))  # Проверяем, что новый пароль установлен корректно
 
-    @tag('password', 'invalid_data')
+    @tag('password', 'invalid_data', 'services')
     def test_invalid_data(self):
         """
         Проверка отработки исключения при передаче невалидных данных

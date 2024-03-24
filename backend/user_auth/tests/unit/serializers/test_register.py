@@ -9,7 +9,7 @@ class TestRegisterSerializer(CommonTestData):
     Тестирование схемы для регистрации пользователя
     """
 
-    @tag('registration')
+    @tag('registration', 'serializers')
     def test_registration(self):
         """
         Передача и проверка валидных данных
@@ -18,7 +18,7 @@ class TestRegisterSerializer(CommonTestData):
 
         self.assertTrue(serializer.is_valid())
 
-    @tag('registration', 'error')
+    @tag('registration', 'error', 'serializers')
     def test_no_required_fields(self):
         """
         Проверка отработки исключения при отсутствии обязательных полей

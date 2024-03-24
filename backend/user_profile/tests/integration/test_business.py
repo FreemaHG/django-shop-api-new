@@ -10,7 +10,7 @@ class TestBusiness(CommonTestData):
     Тестирование бизнес-логики приложения по обновлению данных профиля пользователя
     """
 
-    @tag('update', 'profile')
+    @tag('update', 'profile', 'business')
     def test_update_profile(self):
         """
         Проверка корректности обновления данных профиля и пользователя

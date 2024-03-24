@@ -10,7 +10,7 @@ class TestRegistrationViews(CommonTestData):
     Тестирование представления, отвечающего за регистрацию пользователя
     """
 
-    @tag('post', 'registration')
+    @tag('post', 'registration', 'views')
     def test_registration_user(self):
         """
         Проверка успешной регистрации и авторизации пользователя
@@ -22,7 +22,7 @@ class TestRegistrationViews(CommonTestData):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(user.is_authenticated)
 
-    @tag('registration', 'post', 'error')
+    @tag('registration', 'post', 'error', 'views')
     def test_already_registration_user(self):
         """
         Проверка статуса ответа при регистрации пользователя с уже имеющимся в БД username
@@ -33,7 +33,7 @@ class TestRegistrationViews(CommonTestData):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['detail'], 'Пользователь с таким именем уже зарегистрирован')
 
-    @tag('registration', 'post', 'invalid_data')
+    @tag('registration', 'post', 'invalid_data', 'views')
     def test_invalid_registration_user_data(self):
         """
         Проверка статуса ответа при попытке зарегистрироваться с невалидными данными

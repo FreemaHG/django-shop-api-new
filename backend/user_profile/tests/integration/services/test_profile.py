@@ -31,7 +31,7 @@ class TestProfileServices(CommonTestData):
             password='test_secret'
         )
 
-    @tag('profile', 'get')
+    @tag('profile', 'get', 'services')
     def test_get_profile(self):
         """
         Проверка вывода профиля пользователя
@@ -44,7 +44,7 @@ class TestProfileServices(CommonTestData):
         self.assertTrue(isinstance(profile, dict))
         self.assertEqual(control_fields, fields_list)
 
-    @tag('profile', 'update')
+    @tag('profile', 'update', 'services')
     def test_update_profile(self):
         """
         Проверка обновления профиля пользователя
@@ -55,7 +55,7 @@ class TestProfileServices(CommonTestData):
         self.assertEqual(updated_data['email'], self.update_data_profile['email'])
         self.assertEqual(updated_data['phone'], self.update_data_profile['phone'])
 
-    @tag('profile', 'not_found')
+    @tag('profile', 'not_found', 'services')
     def test_update_profile_not_found(self):
         """
         Проверка отработки исключения, если профиль для обновления не найден
@@ -68,7 +68,7 @@ class TestProfileServices(CommonTestData):
             self.update_data_profile
         )
 
-    @tag('profile', 'invalid_data')
+    @tag('profile', 'invalid_data', 'services')
     def test_update_profile_invalid_data(self):
         """
         Проверка отработки исключения при передаче невалидных данных

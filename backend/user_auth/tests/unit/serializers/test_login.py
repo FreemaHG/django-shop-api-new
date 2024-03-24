@@ -13,7 +13,7 @@ class TestLoginSerializer(CommonTestData):
     Тестирование схемы для авторизации пользователя
     """
 
-    @tag('login')
+    @tag('login', 'serializers')
     def test_login(self):
         """
         Передача и проверка валидных данных
@@ -22,7 +22,7 @@ class TestLoginSerializer(CommonTestData):
 
         self.assertTrue(serializer.is_valid())
 
-    @tag('login', 'error')
+    @tag('login', 'error', 'serializers')
     def test_no_required_fields(self):
         """
         Проверка отработки исключения при отсутствии обязательных полей

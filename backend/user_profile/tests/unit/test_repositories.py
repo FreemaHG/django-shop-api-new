@@ -15,7 +15,7 @@ class TestRepositories(APITestCase):
 
     fixtures = [FIXTURES_PATH]
 
-    @tag('get', 'profile')
+    @tag('get', 'profile', 'repositories')
     def test_get_profile(self):
         """
         Проверка корректности поиска и возврата профиля пользователя
@@ -28,7 +28,7 @@ class TestRepositories(APITestCase):
         self.assertTrue(isinstance(profile, Profile))
         self.assertEqual(control_profile, profile)
 
-    @tag('create', 'profile')
+    @tag('create', 'profile', 'repositories')
     def test_create_profile(self):
         """
         Проверка корректности создания профиля пользователя

@@ -34,6 +34,9 @@ class RegistrationService:
 
             new_user = RegistrationUserBusiness.registration(data=serializer.validated_data)
 
+            # TODO Реализовать позже слияние корзин гостя и пользователя в БД!!!
+            # BasketService.merger(request=request, user=user)
+
             # Аутентификация пользователя
             authenticated_user = authenticate(
                 username=new_user.username,

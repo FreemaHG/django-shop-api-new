@@ -17,7 +17,7 @@ class TestBusiness(CommonTestData):
         super().setUpTestData()
         cls.last_name, cls.first_name, cls.patronymic = cls.registration_data['name'].split(' ')
 
-    @tag('registration')
+    @tag('registration', 'business')
     def test_save_basic_data(self):
         """
         Проверка корректности сохранения основных данных: username, профиля и пароля
@@ -28,7 +28,7 @@ class TestBusiness(CommonTestData):
         self.assertEqual(self.new_user.username, self.registration_data['username'])
         self.assertTrue(self.new_user.check_password(self.registration_data['password']))
 
-    @tag('registration')
+    @tag('registration', 'business')
     def test_registration_user_with_unnecessary_words(self):
         """
         Проверка корректности сохранения полного имени нового пользователя при передаче 4 и более слов в имени
@@ -40,7 +40,7 @@ class TestBusiness(CommonTestData):
         self.assertEqual(self.new_user.last_name, self.last_name)
         self.assertEqual(self.new_user.profile.patronymic, self.patronymic)
 
-    @tag('registration')
+    @tag('registration', 'business')
     def test_registration_user_with_full_name(self):
         """
         Проверка корректности сохранения полного имени нового пользователя
@@ -51,7 +51,7 @@ class TestBusiness(CommonTestData):
         self.assertEqual(self.new_user.last_name, self.last_name)
         self.assertEqual(self.new_user.profile.patronymic, self.patronymic)
 
-    @tag('registration')
+    @tag('registration', 'business')
     def test_registration_user_with_first_and_last_names(self):
         """
         Проверка корректности сохранения имени и фамилии нового пользователя
@@ -63,7 +63,7 @@ class TestBusiness(CommonTestData):
         self.assertEqual(self.new_user.last_name, self.last_name)
         self.assertFalse(self.new_user.profile.patronymic)
 
-    @tag('registration')
+    @tag('registration', 'business')
     def test_registration_user_with_first_names(self):
         """
         Проверка корректности сохранения имени нового пользователя
